@@ -1,3 +1,7 @@
+# -----------------------------------------------------------------------------
+# Outputs: Dynamo
+# -----------------------------------------------------------------------------
+
 output "table_name" {
   value       = formatlist("%s", aws_dynamodb_table.default.*.name)
   description = "DynamoDB table name names"
