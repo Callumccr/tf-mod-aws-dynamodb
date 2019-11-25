@@ -1,6 +1,34 @@
-/*****
-Module Variables: DynamoDB - https://github.com/aciem-admin/tf-mod-prometheus/tree/master/modules/dynamo
-*****/
+# -----------------------------------------------------------------------------
+# Variables: Common AWS Provider - Autoloaded from Terragrunt
+# -----------------------------------------------------------------------------
+
+variable "aws_region" {
+  description = "The AWS region (e.g. ap-southeast-2). Autoloaded from region.tfvars."
+  type        = string
+  default     = ""
+}
+
+variable "aws_account_id" {
+  description = "The AWS account id of the provider being deployed to (e.g. 12345678). Autoloaded from account.tfvars"
+  type        = string
+  default     = ""
+}
+
+variable "aws_assume_role_arn" {
+  description = "ARN of the IAM role when optionally connecting to AWS via assumed role. Autoloaded from account.tfvars."
+  type        = string
+  default     = ""
+}
+
+# -----------------------------------------------------------------------------
+# Variables: TF-MOD-DYANMO - https://github.com/aciem-admin/tf-mod-dynamo
+# -----------------------------------------------------------------------------
+
+variable "enabled" {
+  description = "(Optional). A Switch that decides whether to create a terraform resource or run a provisioner. Default is true"
+  type        = bool
+  default     = true
+}
 
 variable "dynamo_tables" {
   type        = list(string)
@@ -144,10 +172,9 @@ variable "local_secondary_index_map" {
   description = "Additional local secondary indexes in the form of a list of mapped values"
 }
 
-
-/*****
-Label Module Variables
-*****/
+# -----------------------------------------------------------------------------
+# Variables: TF-MOD-LABEL - https://github.com/aciem-admin/tf-mod-label
+# -----------------------------------------------------------------------------
 
 variable "namespace" {
   type        = string
@@ -185,11 +212,6 @@ variable "tags" {
   description = "Additional tags (e.g. `map('BusinessUnit','XYZ')`"
 }
 
-variable "regex_replace_chars" {
-  type        = string
-  default     = "/[^a-zA-Z0-9-]/"
-  description = "Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`. By default only hyphens, letters and digits are allowed, all other chars are removed"
-}
 
 variable "context" {
   type = object({
