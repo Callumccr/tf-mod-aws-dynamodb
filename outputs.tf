@@ -16,3 +16,8 @@ output "table_arn" {
   value       = formatlist("%s", aws_dynamodb_table.default.*.arn)
   description = "DynamoDB table ARNs"
 }
+
+output "table_stream_arn" {
+  value       = formatlist("%s", aws_dynamodb_table.default.*.stream_arn)
+  description = "The ARN of the Table Stream. Only available when stream_enabled = true"
+}
