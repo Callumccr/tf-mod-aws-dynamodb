@@ -1,5 +1,5 @@
 # -----------------------------------------------------------------------------
-# Outputs: TF-MOD-DYANMO - https://github.com/aciem-admin/tf-mod-dynamo
+# Outputs: TF-MOD-DYANMO 
 # -----------------------------------------------------------------------------
 
 output "table_name" {

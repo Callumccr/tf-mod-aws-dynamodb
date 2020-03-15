@@ -15,24 +15,36 @@ variable "aws_account_id" {
 }
 
 variable "aws_assume_role_arn" {
-  description = "ARN of the IAM role when optionally connecting to AWS via assumed role. Autoloaded from account.tfvars."
+  description = "(Optional) - ARN of the IAM role when optionally connecting to AWS via assumed role. Autoloaded from account.tfvars."
+  type        = string
+  default     = ""
+}
+
+variable "aws_assume_role_session_name" {
+  description = "(Optional) - The session name to use when making the AssumeRole call."
+  type        = string
+  default     = ""
+}
+
+variable "aws_assume_role_external_id" {
+  description = "(Optional) - The external ID to use when making the AssumeRole call."
   type        = string
   default     = ""
 }
 
 # -----------------------------------------------------------------------------
-# Variables: TF-MOD-DYANMO - https://github.com/aciem-admin/tf-mod-dynamo
+# Variables: TF-MOD-DYANMO 
 # -----------------------------------------------------------------------------
 
 variable "enabled" {
-  description = "(Optional). A Switch that decides whether to create a terraform resource or run a provisioner. Default is true"
+  description = "(Optional) - A Switch that decides whether to create a terraform resource or run a provisioner. Default is true"
   type        = bool
   default     = true
 }
 
-variable "dynamo_tables" {
+variable "dynamo_table_names" {
   type        = list(string)
-  description = "The list of Dynamo tables to be created"
+  description = "(Optional) - The list of Dynamo tables to be created"
   default     = []
 }
 
@@ -40,102 +52,102 @@ variable "dynamo_tables" {
 variable "autoscale_write_target" {
   type        = number
   default     = 50
-  description = "The target value (in %) for DynamoDB write autoscaling"
+  description = "(Optional) - The target value (in %) for DynamoDB write autoscaling"
 }
 
 variable "autoscale_read_target" {
   type        = number
   default     = 50
-  description = "The target value (in %) for DynamoDB read autoscaling"
+  description = "(Optional) - The target value (in %) for DynamoDB read autoscaling"
 }
 
 variable "autoscale_min_read_capacity" {
   type        = number
   default     = 5
-  description = "DynamoDB autoscaling min read capacity"
+  description = "(Optional) - DynamoDB autoscaling min read capacity"
 }
 
 variable "autoscale_max_read_capacity" {
   type        = number
   default     = 20
-  description = "DynamoDB autoscaling max read capacity"
+  description = "(Optional) - DynamoDB autoscaling max read capacity"
 }
 
 variable "autoscale_min_write_capacity" {
   type        = number
   default     = 5
-  description = "DynamoDB autoscaling min write capacity"
+  description = "(Optional) - DynamoDB autoscaling min write capacity"
 }
 
 variable "autoscale_max_write_capacity" {
   type        = number
   default     = 20
-  description = "DynamoDB autoscaling max write capacity"
+  description = "(Optional) - DynamoDB autoscaling max write capacity"
 }
 
 variable "billing_mode" {
   type        = string
   default     = "PROVISIONED"
-  description = "DynamoDB Billing mode. Can be PROVISIONED or PAY_PER_REQUEST"
+  description = "(Optional) - DynamoDB Billing mode. Can be PROVISIONED or PAY_PER_REQUEST"
 }
 
 variable "enable_streams" {
   type        = bool
   default     = false
-  description = "Enable DynamoDB streams"
+  description = "(Optional) - Enable DynamoDB streams"
 }
 
 variable "stream_view_type" {
   type        = string
   default     = ""
-  description = "When an item in the table is modified, what information is written to the stream"
+  description = "(Optional) - When an item in the table is modified, what information is written to the stream"
 }
 
 variable "enable_encryption" {
   type        = bool
   default     = true
-  description = "Enable DynamoDB server-side encryption"
+  description = "(Optional) - Enable DynamoDB server-side encryption"
 }
 
 variable "enable_point_in_time_recovery" {
   type        = bool
   default     = true
-  description = "Enable DynamoDB point in time recovery"
+  description = "(Optional) - Enable DynamoDB point in time recovery"
 }
 
 variable "hash_key" {
   type        = string
-  description = "DynamoDB table Hash Key"
+  description = "(Optional) - DynamoDB table Hash Key"
 }
 
 variable "hash_key_type" {
   type        = string
   default     = "S"
-  description = "Hash Key type, which must be a scalar type: `S`, `N`, or `B` for (S)tring, (N)umber or (B)inary data"
+  description = "(Optional) - Hash Key type, which must be a scalar type: `S`, `N`, or `B` for (S)tring, (N)umber or (B)inary data"
 }
 
 variable "range_key" {
   type        = string
   default     = ""
-  description = "DynamoDB table Range Key"
+  description = "(Optional) - DynamoDB table Range Key"
 }
 
 variable "range_key_type" {
   type        = string
   default     = "S"
-  description = "Range Key type, which must be a scalar type: `S`, `N`, or `B` for (S)tring, (N)umber or (B)inary data"
+  description = "(Optional) - Range Key type, which must be a scalar type: `S`, `N`, or `B` for (S)tring, (N)umber or (B)inary data"
 }
 
 variable "ttl_attribute" {
   type        = string
   default     = "Expires"
-  description = "DynamoDB table TTL attribute"
+  description = "(Optional) - DynamoDB table TTL attribute"
 }
 
 variable "enable_autoscaler" {
   type        = bool
   default     = true
-  description = "Flag to enable/disable DynamoDB autoscaling"
+  description = "(Optional) - Flag to enable/disable DynamoDB autoscaling"
 }
 
 variable "dynamodb_attributes" {
@@ -144,7 +156,7 @@ variable "dynamodb_attributes" {
     type = string
   }))
   default     = []
-  description = "Additional DynamoDB attributes in the form of a list of mapped values"
+  description = "(Optional) - Additional DynamoDB attributes in the form of a list of mapped values"
 }
 
 variable "global_secondary_index_map" {
@@ -158,7 +170,7 @@ variable "global_secondary_index_map" {
     write_capacity     = number
   }))
   default     = []
-  description = "Additional global secondary indexes in the form of a list of mapped values"
+  description = "(Optional) - Additional global secondary indexes in the form of a list of mapped values"
 }
 
 variable "local_secondary_index_map" {
@@ -169,76 +181,45 @@ variable "local_secondary_index_map" {
     range_key          = string
   }))
   default     = []
-  description = "Additional local secondary indexes in the form of a list of mapped values"
+  description = "(Optional) - Additional local secondary indexes in the form of a list of mapped values"
 }
 
 # -----------------------------------------------------------------------------
-# Variables: TF-MOD-LABEL - https://github.com/aciem-admin/tf-mod-label
+# Variables: TF-MOD-LABEL
 # -----------------------------------------------------------------------------
 
 variable "namespace" {
   type        = string
   default     = ""
-  description = "Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'"
+  description = "(Optional) - Namespace, which could be your abbreviated product team, e.g. 'rci', 'mi', 'hp', or 'core'"
 }
 
 variable "environment" {
   type        = string
   default     = ""
-  description = "Environment, e.g. 'prod', 'staging', 'dev', 'pre-prod', 'UAT'"
+  description = "(Optional) - Environment, e.g. 'dev', 'qa', 'staging', 'prod'"
 }
 
 variable "name" {
   type        = string
   default     = ""
-  description = "Solution name, e.g. 'app' or 'jenkins'"
+  description = "(Optional) - Solution name, e.g. 'vault', 'consul', 'keycloak', 'k8s', or 'baseline'"
 }
 
 variable "delimiter" {
   type        = string
   default     = "-"
-  description = "Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`"
+  description = "(Optional) - Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`"
 }
 
 variable "attributes" {
   type        = list(string)
   default     = []
-  description = "Additional attributes (e.g. `1`)"
+  description = "(Optional) - Additional attributes (e.g. `1`)"
 }
 
 variable "tags" {
   type        = map(string)
   default     = {}
-  description = "Additional tags (e.g. `map('BusinessUnit','XYZ')`"
-}
-
-
-variable "context" {
-  type = object({
-    namespace           = string
-    environment         = string
-    stage               = string
-    name                = string
-    enabled             = bool
-    delimiter           = string
-    attributes          = list(string)
-    label_order         = list(string)
-    tags                = map(string)
-    additional_tag_map  = map(string)
-    regex_replace_chars = string
-  })
-  default = {
-    namespace           = ""
-    environment         = ""
-    stage               = ""
-    name                = ""
-    enabled             = true
-    delimiter           = ""
-    attributes          = []
-    label_order         = []
-    tags                = {}
-    additional_tag_map  = {}
-    regex_replace_chars = ""
-  }
-  description = "Default context to use for passing state between label invocations"
+  description = "(Optional) - Additional tags"
 }
