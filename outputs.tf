@@ -21,3 +21,8 @@ output "table_stream_arn" {
   value       = formatlist("%s", aws_dynamodb_table.default.*.stream_arn)
   description = "The ARN of the Table Stream. Only available when stream_enabled = true"
 }
+
+output "dynamodb_stream_map" {
+  value       = zipmap(aws_dynamodb_table.default.*.id, aws_dynamodb_table.default.*.stream_arn)
+  description = "A map of streams dynamodb tables and their stream ARNs"
+}
