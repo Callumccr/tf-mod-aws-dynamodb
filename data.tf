@@ -16,7 +16,7 @@ data "aws_iam_policy_document" "assume_role" {
 }
 
 data "aws_iam_policy_document" "autoscaler" {
-  count = var.enable_autoscaler ? length(var.dynamo_tables) : 0
+  count = var.enable_autoscaler ? length(var.dynamo_table_names) : 0
   statement {
     sid = ""
 

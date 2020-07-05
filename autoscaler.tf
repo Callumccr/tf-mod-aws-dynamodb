@@ -7,7 +7,7 @@ resource "aws_iam_role" "autoscaler" {
 
 resource "aws_iam_role_policy" "autoscaler" {
   count  = var.enabled == true && var.enable_autoscaler != false ? length(var.dynamo_table_names) : 0
-  name   = format("%s%s%s%s%s", module.label.id, var.delimiter, element(var.dynamo_tables, count.index), var.delimiter, "autoscaler")
+  name   = format("%s%s%s%s%s", module.label.id, var.delimiter, element(var.dynamo_table_names, count.index), var.delimiter, "autoscaler")
   role   = join("", aws_iam_role.autoscaler.*.id)
   policy = element(data.aws_iam_policy_document.autoscaler.*.json, count.index)
 }

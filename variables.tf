@@ -69,7 +69,7 @@ variable "autoscale_min_read_capacity" {
 
 variable "autoscale_max_read_capacity" {
   type        = number
-  default     = 20
+  default     = 30
   description = "(Optional) - DynamoDB autoscaling max read capacity"
 }
 
